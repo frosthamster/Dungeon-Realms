@@ -62,7 +62,6 @@ namespace Dungeon_Realms
                     {
                         Swap(GetIncident(direction));
                     }
-
                     else
                         return false;
                 }

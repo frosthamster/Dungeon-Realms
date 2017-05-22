@@ -9,7 +9,7 @@ namespace Dungeon_Realms
         public event Action GameOver;
         public event Action<int> LevelFinished;
 
-        public  Hero Hero { get; }
+        public Hero Hero { get; }
         public Point Destination { get; }
         public GameObject[,] Map { get; }
 
@@ -25,10 +25,7 @@ namespace Dungeon_Realms
                     GameOver?.Invoke();
             };
 
-            hero.Finish += () =>
-            {
-                LevelFinished?.Invoke(hero.CrystalsCount);
-            };
+            hero.Finish += () => LevelFinished?.Invoke(hero.CrystalsCount);
         }
     }
 }

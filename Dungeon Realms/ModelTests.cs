@@ -11,7 +11,7 @@ namespace Dungeon_Realms
             var result = new GameObject[size, size];
             for (var i = 0; i < size; i++)
                 for (var j = 0; j < size; j++)
-                    result[i, j] = new GameObject(result, new Point(i, j), false, null);
+                    result[i, j] = new GameObject(result, new Point(i, j), isEnemy:false);
             return result;
         }
 
@@ -20,8 +20,8 @@ namespace Dungeon_Realms
             var result = new GameObject[size, size];
             for (var i = 0; i < size; i++)
                 for (var j = 0; j < size; j++)
-                    result[i, j] = new Floor(result, new Point(i, j), null);
-            var hero = new Hero(result, heroLocation, null);
+                    result[i, j] = new Floor(result, new Point(i, j));
+            var hero = new Hero(result, heroLocation);
             result[heroLocation.Y, heroLocation.X] = hero;
             return (result, hero);
         }
@@ -42,7 +42,7 @@ namespace Dungeon_Realms
         [Test]
         public void MoveHero()
         {
-            (var map, var hero) = GetSimpleMap(2, new Point(0, 0));
+            var hero = GetSimpleMap(2, new Point(0, 0)).hero;
             hero.TryMove(Direction.Right);
             Assert.AreEqual(new Point(0, 1), hero.Location);
             hero.TryMove(Direction.Up);
