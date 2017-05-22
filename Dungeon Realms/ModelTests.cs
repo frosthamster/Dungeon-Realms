@@ -160,13 +160,13 @@ namespace Dungeon_Realms
             @in.Close();
             map[0, 1] = plate;
             Assert.IsFalse(@in.IsOpened);
-            Assert.IsFalse(@in.IsOpened);
+            Assert.IsFalse(@out.IsOpened);
             hero.TryMove(Direction.Right);
             Assert.IsTrue(@in.IsOpened);
-            Assert.IsTrue(@in.IsOpened);
+            Assert.IsTrue(@out.IsOpened);
             hero.TryMove(Direction.Left);
             Assert.IsFalse(@in.IsOpened);
-            Assert.IsFalse(@in.IsOpened);
+            Assert.IsFalse(@out.IsOpened);
         }
 
         [Test]
@@ -185,10 +185,21 @@ namespace Dungeon_Realms
             @in.Close();
             map[0, 2] = plate;
             Assert.IsFalse(@in.IsOpened);
-            Assert.IsFalse(@in.IsOpened);
+            Assert.IsFalse(@out.IsOpened);
             hero.TryMove(Direction.Right);
             Assert.IsTrue(@in.IsOpened);
-            Assert.IsTrue(@in.IsOpened);
+            Assert.IsTrue(@out.IsOpened);
+        }
+
+        [Test]
+        public void ReportsOnTheFinish()
+        {
+            (var map, var hero) = GetSimpleMap(2, new Point(0, 0));
+            var eventOccurred = false;
+            hero.Finish += () => eventOccurred = true;
+            map[0,1] = new Finish(map, new Point(0,1));
+            hero.TryMove(Direction.Right);
+            Assert.IsTrue(eventOccurred);
         }
     }
 }
